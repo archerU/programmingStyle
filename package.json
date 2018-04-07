@@ -1,0 +1,22 @@
+{
+  "name": "programmingstyle",
+  "version": "1.0.0",
+  "description": "编程风格 js 版本",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archerU/programmingStyle.git"
+  },
+  "keywords": [
+    "编程风格"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archerU/programmingStyle/issues"
+  },
+  "homepage": "https://github.com/archerU/programmingStyle#readme"
+}
