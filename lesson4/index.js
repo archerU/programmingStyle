@@ -15,7 +15,7 @@ function read_file(path_to_file) {
 
 // 用空白替代所有的非字母数字字符
 function filter_chars_and_normalize() {
-  data = data.replace(/[\"\.\;\,\n]/g," ").toLowerCase().split(' ');
+  data = data.replace(/[^\w]/g," ").toLowerCase().split(" ");
 }
 
 // 扫描单词，填补全局变量单词
@@ -29,8 +29,7 @@ function scan() {
 }
 
 function remove_stop_words() {
-  const stop_words = fs.readFileSync('../public/stop_words.txt').toString().toLowerCase().replace(/[\n]/g,',').split(",");
-
+  const stop_words = fs.readFileSync('../public/stop_words.txt').toString().toLowerCase().replace(/[^\w]/g,',').split(",");
   words.forEach((word,index) => {
     stop_words.forEach((stopWord)=> {
       if (word == stopWord || !word) {
@@ -47,15 +46,20 @@ function remove_stop_words() {
 
 // 创建列表，存放单词及其词频
 function frequencies() {
-  // 数组去重复 (下标法去重数组)
+  // 数组去重复 
   const array = [];
-  words.forEach((item) => {
-    if (array.indexOf(item) == -1) {
-      array.push([item,1])
+  words.forEach((items) => {
+    let repeat = false;
+    array.forEach((item) => {
+      if (item[0] == items) {
+        repeat = true;
+      }
+    })
+    if (!repeat) {
+      array.push([items,1])
     }
   })
   word_freqs = array;
-
   words.forEach((word) => {
     word_freqs.forEach((item) => {
       if (word === item[0]) {
@@ -87,6 +91,9 @@ frequencies();
 sort();
 
 // console.log("word_freqs",word_freqs)
-word_freqs.forEach((item) => {
+word_freqs.forEach((item,index) => {
+  if (index > 10) {
+    return;
+  }
   console.log(`${item[0]} --- ${item[1]}`)
 })
